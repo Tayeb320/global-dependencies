@@ -1,0 +1,19 @@
+{
+    "name": "itclan/global-service-dependencies",
+    "description": "Global dependency porvider",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Itclan\\GlobalServiceDependencies\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tayef",
+            "email": "tayeb.khan320@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

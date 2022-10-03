@@ -1,6 +1,6 @@
 <?php
 
-namespace Itclan\GlobalServiceDependencies;
+namespace Tayeb320\GlobalServiceDependencies;
 
 
 class GlobalConstant

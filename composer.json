@@ -1,11 +1,11 @@
 {
-    "name": "itclan/global-service-dependencies",
-    "description": "Global dependency porvider",
+    "name": "tayeb320/global-service-dependencies",
+    "description": "Global dependency provider",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Itclan\\GlobalServiceDependencies\\": "src/"
+            "Tayeb320\\GlobalServiceDependencies\\": "src/"
         }
     },
     "authors": [

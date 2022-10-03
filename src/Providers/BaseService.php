@@ -1,8 +1,8 @@
 <?php
 
-namespace Itclan\GlobalServiceDependencies\Providers;
+namespace Tayeb320\GlobalServiceDependencies\Providers;
 
-use Itclan\GlobalServiceDependencies\GlobalConstant;
+use Tayeb320\GlobalServiceDependencies\GlobalConstant;
 use Illuminate\Database\Eloquent\Model;
 
 class BaseService

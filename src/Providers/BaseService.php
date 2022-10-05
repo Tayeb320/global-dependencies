@@ -4,14 +4,16 @@ namespace Tayeb320\GlobalServiceDependencies\Providers;
 
 use Tayeb320\GlobalServiceDependencies\GlobalConstant;
 use Illuminate\Database\Eloquent\Model;
+use Tayeb320\GlobalServiceDependencies\Providers\Utils\FileUploadService;
 
 class BaseService
 {
     protected $model;
 
-    public function __construct(Model $model)
+    public function __construct(Model $model, FileUploadService $fileUploadService)
     {
         $this->model = $model;
+        $this->fileUploadService = $fileUploadService;
     }
 
     public function getByUserId($id, $with = [])
@@ -65,10 +67,41 @@ class BaseService
         }
     }
 
+    public function createOrUpdateWithFile(array $data, $file_field_name, $id = null)
+    {
+        try {
+            if ($id) {
+                $object = $this->model->findOrFail($id);
+                if (isset($data[$file_field_name]) && $data[$file_field_name] != null) {
+                    $data[$file_field_name] = $this->uploadFile($data[$file_field_name], $object->$file_field_name);
+                }
+                return $object->update($data);
+            } else {
+                if (isset($data[$file_field_name]) && $data[$file_field_name] != null) {
+                    $data[$file_field_name] = $this->uploadFile($data[$file_field_name]);
+                }
+                return $this->model::create($data);
+            }
+        } catch (Throwable $th) {
+            throw $th;
+        }
+    }
+
     public function delete($id)
     {
         try {
             return $this->model::findOrfail($id)->delete();
+        } catch (\Exception $e) {
+            $this->logErrorResponse($e);
+        }
+    }
+
+    public function deleteWithFile($id)
+    {
+        try {
+            $object = $this->model->findOrFail($id);
+            $this->fileUploadService->delete($this->model::FILE_STORE_PATH . '/' . $object->file);
+            return $object->delete();
         } catch (\Exception $e) {
             $this->logErrorResponse($e);
         }

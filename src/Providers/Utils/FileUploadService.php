@@ -1,6 +1,6 @@
 <?php
 
-namespace Tayeb320\GlobalServiceDependencies\Providers\Utils;
+namespace Itclanbd\GlobalServiceDependencies\Providers\Utils;
 
 use Exception;
 use Illuminate\Support\Facades\Storage;

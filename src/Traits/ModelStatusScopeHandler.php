@@ -1,8 +1,8 @@
 <?php
 
-namespace Tayeb320\GlobalServiceDependencies\Traits;
+namespace Itclanbd\GlobalServiceDependencies\Traits;
 
-use Tayeb320\GlobalServiceDependencies\GlobalConstant;
+use Itclanbd\GlobalServiceDependencies\GlobalConstant;
 
 trait ModelStatusScopeHandler
 {

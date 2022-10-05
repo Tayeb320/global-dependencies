@@ -1,17 +1,17 @@
 {
-    "name": "tayeb320/global-dependencies",
+    "name": "itclanbd/global-dependencies",
     "description": "Global dependency provider",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Tayeb320\\GlobalServiceDependencies\\": "src/"
+            "Itclanbd\\GlobalServiceDependencies\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "Tayef",
-            "email": "tayeb.khan320@gmail.com"
+            "name": "Itclanbd",
+            "email": "info@itclanbd.com"
         }
     ],
     "minimum-stability": "dev",

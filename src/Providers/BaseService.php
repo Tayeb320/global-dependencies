@@ -1,10 +1,10 @@
 <?php
 
-namespace Tayeb320\GlobalServiceDependencies\Providers;
+namespace Itclanbd\GlobalServiceDependencies\Providers;
 
-use Tayeb320\GlobalServiceDependencies\GlobalConstant;
+use Itclanbd\GlobalServiceDependencies\GlobalConstant;
 use Illuminate\Database\Eloquent\Model;
-use Tayeb320\GlobalServiceDependencies\Providers\Utils\FileUploadService;
+use Itclanbd\GlobalServiceDependencies\Providers\Utils\FileUploadService;
 
 class BaseService
 {

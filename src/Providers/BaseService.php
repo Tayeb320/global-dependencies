@@ -73,16 +73,16 @@ class BaseService
             if ($id) {
                 $object = $this->model->findOrFail($id);
                 if (isset($data[$file_field_name]) && $data[$file_field_name] != null) {
-                    $data[$file_field_name] = $this->uploadFile($data[$file_field_name], $object->$file_field_name);
+                    $data[$file_field_name] = $this->fileUploadService->uploadFile($data[$file_field_name], $object->$file_field_name);
                 }
                 return $object->update($data);
             } else {
                 if (isset($data[$file_field_name]) && $data[$file_field_name] != null) {
-                    $data[$file_field_name] = $this->uploadFile($data[$file_field_name]);
+                    $data[$file_field_name] = $this->fileUploadService->uploadFile($data[$file_field_name]);
                 }
                 return $this->model::create($data);
             }
-        } catch (Throwable $th) {
+        } catch (\Throwable $th) {
             throw $th;
         }
     }

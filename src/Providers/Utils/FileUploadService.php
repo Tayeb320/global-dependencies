@@ -40,7 +40,7 @@ class FileUploadService
     }
 
     // Upload file and save file name by given name
-    public function uploadFileWithName($file, $upload_path = null, $delete_path = null, $set_file_name)
+    public function uploadFileWithName($file, $set_file_name, $upload_path = null, $delete_path = null)
     {
         try {
             // Upload image

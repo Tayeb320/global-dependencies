@@ -19,6 +19,9 @@ class GlobalConstant
     const ATTRIBUTE_TYPE_COLOR = 'color';
     const ATTRIBUTE_TYPE_IMAGE = 'image';
 
+    const DISCOUNT_TYPE_FIXED = 'fixed';
+    const DISCOUNT_TYPE_PERCENTAGE = 'percentage';
+
     const ATTRIBUTE_TYPES = [
         self::ATTRIBUTE_TYPE_TEXT => 'Text',
         self::ATTRIBUTE_TYPE_COLOR => 'Color',

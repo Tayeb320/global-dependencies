@@ -31,7 +31,7 @@ class BaseService
             $query = $this->model::query()->with($with);
 
             //check if this model using softDelete before apply softDelete functions
-            if ($this->model->hasSoftDelete()  && request('trashed') == 'true' || request('trashed') == '1') {
+            if ($this->model->hasSoftDelete()  && (request('trashed') == 'true' || request('trashed') == '1')) {
                 $query->withTrashed();
             }
             if ($id) {
@@ -111,6 +111,22 @@ class BaseService
         };
 
         return $query->paginate($limit);
+    }
+
+    //get only trashed data
+    public function getTrashedData($id = null, $with = [])
+    {
+        try {
+            $query = $this->model::query()->with($with)->onlyTrashed();
+
+            if ($id) {
+                return $query->findOrFail($id);
+            } else {
+                return $query->get();
+            }
+        } catch (\Exception $e) {
+            $this->logErrorResponse($e);
+        }
     }
 
 }

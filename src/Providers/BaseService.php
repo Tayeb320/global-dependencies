@@ -114,19 +114,9 @@ class BaseService
     }
 
     //get only trashed data
-    public function getTrashedData($id = null, $with = [])
+    public function getTrashedData($with = [])
     {
-        try {
-            $query = $this->model::query()->with($with)->onlyTrashed();
-
-            if ($id) {
-                return $query->findOrFail($id);
-            } else {
-                return $query->get();
-            }
-        } catch (\Exception $e) {
-            $this->logErrorResponse($e);
-        }
+        return $this->model::query()->with($with)->onlyTrashed()->get();
     }
 
 }

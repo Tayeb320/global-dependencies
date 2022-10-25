@@ -28,10 +28,16 @@ class BaseService
     public function get($id = null, $with = [])
     {
         try {
+            $query = $this->model::query()->with($with);
+
+            //check if this model using softDelete before apply softDelete functions
+            if ($this->model->hasSoftDelete()  && (request('trashed') == 'true' || request('trashed') == '1')) {
+                $query->withTrashed();
+            }
             if ($id) {
-                return $this->model::with($with)->findOrFail($id);
+                return $query->findOrFail($id);
             } else {
-                return $this->model::with($with)->get();
+                return $query->get();
             }
         } catch (\Exception $e) {
             $this->logErrorResponse($e);
@@ -41,10 +47,16 @@ class BaseService
     public function getActiveData($id = null, $with = [])
     {
         try {
+            $query = $this->model::query()->with($with)->active();
+
+            //check if this model using softDelete before apply softDelete functions
+            if ($this->model->hasSoftDelete()  && (request('trashed') == 'true' || request('trashed') == '1')) {
+                $query->withTrashed();
+            }
             if ($id) {
-                return $this->model::with($with)->active()->findOrFail($id);
+                return $query->findOrFail($id);
             } else {
-                return $this->model::with($with)->active()->get();
+                return $query->get();
             }
         } catch (\Exception $e) {
             $this->logErrorResponse($e);
@@ -86,6 +98,11 @@ class BaseService
         //get default pagination from config if not provided
         $limit = request('per_page',ic_config('default_paginate'));
 
+        //check if this model using softDelete before apply softDelete functions
+        if ($this->model->hasSoftDelete()  && (request('trashed') == 'true' || request('trashed') == '1')) {
+            $query->withTrashed();
+        }
+
         //match works like switch case
         $query = match($status) {
             GlobalConstant::STATUS_ACTIVE => $query->active(),
@@ -94,6 +111,22 @@ class BaseService
         };
 
         return $query->paginate($limit);
+    }
+
+    //get only trashed data
+    public function getTrashedData($id = null, $with = [])
+    {
+        try {
+            $query = $this->model::query()->with($with)->onlyTrashed();
+
+            if ($id) {
+                return $query->findOrFail($id);
+            } else {
+                return $query->get();
+            }
+        } catch (\Exception $e) {
+            $this->logErrorResponse($e);
+        }
     }
 
 }

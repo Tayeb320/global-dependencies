@@ -4,7 +4,6 @@ namespace Itclanbd\GlobalServiceDependencies\Providers;
 
 use Itclanbd\GlobalServiceDependencies\GlobalConstant;
 use Illuminate\Database\Eloquent\Model;
-use Itclanbd\GlobalServiceDependencies\Providers\Utils\FileUploadService;
 
 class BaseService
 {

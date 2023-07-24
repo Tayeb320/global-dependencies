@@ -106,6 +106,37 @@ class FileUploadService
         }
     }
 
+    public function uploadFromURL($file, $path = 'others', $use_original_name = false, $delete_file = null)
+    {
+        try {
+            if (!$use_original_name) {
+                $name = basename($file);
+                // get extension from url
+                $extension = pathinfo($name, PATHINFO_EXTENSION);
+                $name = time() . rand(1111, 9999) . '.' . $extension;
+            } else {
+                // get the name from url and use it as file name
+                $name = basename($file);
+                $name = $this->generateSlug($name) . '-' . time() . rand(1111, 9999) . '.' . $file->getClientOriginalExtension();
+            }
+            // Store image to public disk from url using file_get_contents
+            $file_get_contents = file_get_contents($file);
+
+            if ($delete_file) {
+                info($delete_file);
+                $this->delete($delete_file);
+            }
+
+            // now use saveAs to store image to public disk
+            Storage::disk('public')->put($path . '/' . $name, $file_get_contents);
+
+            return $name ?? '';
+
+        } catch (\Exception $ex) {
+            return '';
+        }
+    }
+
     public function uploadBase64($base64string, $path = 'others', $disk = 'public', $set_file_name = '')
     {
         try {

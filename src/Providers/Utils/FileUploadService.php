@@ -137,17 +137,20 @@ class FileUploadService
         }
     }
 
-    public function uploadBase64($base64string, $path = 'others', $disk = 'public', $set_file_name = '')
+    public function uploadBase64($base64string, $path = 'others', $disk = 'public', $set_file_name = '', $extension = '')
     {
         try {
-            $extension = explode('/', explode(':', substr($base64string, 0, strpos($base64string, ';')))[1])[1]; // .jpg .png .pdf
-            $replace   = substr($base64string, 0, strpos($base64string, ',') + 1);
-            $image     = str_replace($replace, '', $base64string);
-            $image     = str_replace(' ', '+', $image);
+            if ($extension == '') {
+                $extension = explode('/', explode(':', substr($base64string, 0, strpos($base64string, ';')))[1])[1]; // .jpg .png .pdf
+
+                $replace = substr($base64string, 0, strpos($base64string, ',') + 1);
+                $image     = str_replace($replace, '', $base64string);
+                $image     = str_replace(' ', '+', $image);
+            }else{
+                $image = $base64string;
+            }
             $imageName = Str::slug($set_file_name) . time() . rand(1111, 9999) . '.' . $extension;
-
             Storage::disk($disk)->put($path . '/' . $imageName, base64_decode($image));
-
             return $imageName ?? '';
         } catch (\Exception $ex) {
             log_error($ex);

@@ -108,6 +108,8 @@ class FileUploadService
 
     public function uploadFromURL($file, $path = 'others', $use_original_name = false, $delete_file = null)
     {
+        // remove the params from url
+        $file = explode('?', $file)[0];
         try {
             if (!$use_original_name) {
                 $name = basename($file);
@@ -123,12 +125,11 @@ class FileUploadService
             $file_get_contents = file_get_contents($file);
 
             if ($delete_file) {
-                info($delete_file);
                 $this->delete($delete_file);
             }
 
             // now use saveAs to store image to public disk
-            Storage::disk('public')->put($path . '/' . $name, $file_get_contents);
+            $file = Storage::disk('public')->put($path . '/' . $name, $file_get_contents);
 
             return $name ?? '';
 

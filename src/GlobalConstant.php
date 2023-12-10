@@ -18,6 +18,8 @@ class GlobalConstant
     const ATTRIBUTE_TYPE_TEXT = 'text';
     const ATTRIBUTE_TYPE_COLOR = 'color';
     const ATTRIBUTE_TYPE_IMAGE = 'image';
+    const ATTRIBUTE_TYPE_SELECT = 'select';
+    const ATTRIBUTE_TYPE_BUTTON = 'button';
 
     const DISCOUNT_TYPE_FIXED = 'fixed';
     const DISCOUNT_TYPE_PERCENTAGE = 'percentage';
@@ -26,7 +28,10 @@ class GlobalConstant
         self::ATTRIBUTE_TYPE_TEXT => 'Text',
         self::ATTRIBUTE_TYPE_COLOR => 'Color',
         self::ATTRIBUTE_TYPE_IMAGE => 'Image',
-    ];
+        self::ATTRIBUTE_TYPE_SELECT => 'Select',
+        self::ATTRIBUTE_TYPE_BUTTON => 'Button',
+    ];qa
+
 
     const MONTH = [
         '1' => 'Jan',

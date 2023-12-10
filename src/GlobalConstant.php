@@ -30,7 +30,7 @@ class GlobalConstant
         self::ATTRIBUTE_TYPE_IMAGE => 'Image',
         self::ATTRIBUTE_TYPE_SELECT => 'Select',
         self::ATTRIBUTE_TYPE_BUTTON => 'Button',
-    ];qa
+    ];
 
 
     const MONTH = [

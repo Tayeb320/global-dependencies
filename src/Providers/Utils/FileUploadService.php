@@ -129,7 +129,7 @@ class FileUploadService
             }
 
             // now use saveAs to store image to public disk
-            $file = Storage::disk('public')->put($path . '/' . $name, $file_get_contents);
+            $file = Storage::disk(config('filesystem.default'))->put($path . '/' . $name, $file_get_contents);
 
             return $name ?? '';
 
@@ -138,7 +138,7 @@ class FileUploadService
         }
     }
 
-    public function uploadBase64($base64string, $path = 'others', $disk = 'public', $set_file_name = '', $extension = '')
+    public function uploadBase64($base64string, $path = 'others', $set_file_name = '', $extension = '')
     {
         try {
             if ($extension == '') {
@@ -151,7 +151,7 @@ class FileUploadService
                 $image = $base64string;
             }
             $imageName = Str::slug($set_file_name) . time() . rand(1111, 9999) . '.' . $extension;
-            Storage::disk($disk)->put($path . '/' . $imageName, base64_decode($image));
+            Storage::disk(config('filesystem.default'))->put($path . '/' . $imageName, base64_decode($image));
             return $imageName ?? '';
         } catch (\Exception $ex) {
             log_error($ex);
@@ -163,10 +163,7 @@ class FileUploadService
     {
         try {
             // Delete image form public directory
-            $path = storage_path("app/public/" . $path);
-            if (file_exists($path)) {
-                unlink($path);
-            }
+            Storage::disk(config('filesystem.default'))->delete($path);
 
         } catch (\Exception $ex) {
         }
